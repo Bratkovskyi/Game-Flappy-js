@@ -1,5 +1,7 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
+var menu = document.getElementById("menuGame")
+menu.hidden = true;
 
 var bird = new Image();
 var bg = new Image();
@@ -43,6 +45,16 @@ var yPos = 150;
 var grav = 1.8;
 
 
+window.onload = restart;
+function restart() {
+    var btnRestart = document.getElementById("btnGame");
+    btnRestart.onclick = reload;
+}
+function reload() {
+    location.reload();
+}
+
+
 function draw() {
     ctx.drawImage(bg, 0, 0);
 
@@ -64,8 +76,12 @@ function draw() {
             && xPos <= pipe[i].x + pipeUp.width
             && (yPos <= pipe[i].y + pipeUp.height
                 || yPos + bird.height >= pipe[i].y + pipeUp.height + gap)
-                    || yPos + bird.height>= cvs.height - fg.height) {
-            location.reload(); //Перезапуск страницы
+            || yPos + bird.height >= cvs.height - fg.height) {
+            
+            menu.hidden = false;
+            restart;
+            bwindow.stop();
+            // location.reload(); //Перезапуск страницы
         }
         if (pipe[i].x == 5) {
             score++;
